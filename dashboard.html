@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Faiz &amp; Varshana · RSVP Dashboard</title>
+<title>Faiz &amp; Varshana · Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -69,7 +69,7 @@ td .pill{font-size:.55rem;letter-spacing:.15em;padding:.2rem .5rem;border-radius
 
 <div id="login" class="wrap">
   <h1>Faiz &amp; Varshana</h1>
-  <div class="sub">RSVP Dashboard</div>
+  <div class="sub">Guest Links</div>
   <input type="password" id="pw" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()"/>
   <button class="btn" onclick="doLogin()">Enter</button>
 </div>
@@ -81,13 +81,6 @@ td .pill{font-size:.55rem;letter-spacing:.15em;padding:.2rem .5rem;border-radius
     <div class="meta">30 August 2026 · Heavens Convention Center, Malappuram</div>
   </div>
 
-  <div class="stats">
-    <div class="stat"><div class="num" id="sTotal">0</div><div class="lbl">Responses</div></div>
-    <div class="stat"><div class="num" id="sYes">0</div><div class="lbl">Attending</div></div>
-    <div class="stat"><div class="num" id="sGuests">0</div><div class="lbl">Total Guests</div></div>
-    <div class="stat"><div class="num" id="sNo">0</div><div class="lbl">Not Attending</div></div>
-  </div>
-
   <div class="card">
     <h2>Personalised Invite Link</h2>
     <input type="text" id="guestInput" placeholder="Guest's full name" oninput="buildLink()"/>
@@ -96,17 +89,6 @@ td .pill{font-size:.55rem;letter-spacing:.15em;padding:.2rem .5rem;border-radius
       <a class="btn ghost" id="waShare" href="#" target="_blank">Share on WhatsApp</a>
     </div>
     <div class="linkout" id="linkOut"></div>
-  </div>
-
-  <div class="card">
-    <h2>Responses</h2>
-    <div class="row" style="margin-bottom:1rem;">
-      <button class="btn ghost" onclick="exportCSV()">Export CSV</button>
-    </div>
-    <table>
-      <thead><tr><th>Name</th><th>Status</th><th>Guests</th><th>When</th></tr></thead>
-      <tbody id="tbody"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody>
-    </table>
   </div>
 </div>
 
@@ -138,7 +120,6 @@ function doLogin(){
   if(document.getElementById('pw').value === PASSWORD){
     document.getElementById('login').style.display='none';
     document.getElementById('dash').style.display='block';
-    loadRSVPs();
   } else {
     toast('Incorrect password');
   }
@@ -191,7 +172,7 @@ function buildLink(){
   if(!name){ out.style.display='none'; wa.href='#'; return; }
   const url = BASE_URL + '?guest=' + encodeURIComponent(name);
   out.textContent = url; out.style.display='block';
-  const msg = `Dear ${name}, you are warmly invited to the Nikah of Faiz & Varshana. View your personal invitation here: ${url}`;
+  const msg = `Dear ${name}, you are warmly invited to the Wedding Reception of Faiz & Varshana. View your personal invitation here: ${url}`;
   wa.href = 'https://wa.me/?text=' + encodeURIComponent(msg);
 }
 function copyLink(){
