@@ -577,7 +577,7 @@ let adminMode = false;
 
 // ── LOAD HERO IMAGE FROM FIREBASE ──
 function loadHeroImage(){
-  if(!window._db) return;
+  if(!window._db){ setTimeout(loadHeroImage, 300); return; }
   window._db.ref(IMG_PATH + '/hero').once('value', snap => {
     const url = slotUrl(snap.val());
     if(url){
