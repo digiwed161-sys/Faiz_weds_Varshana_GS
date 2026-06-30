@@ -75,34 +75,6 @@ body{overflow-x:hidden;}
 .env-cta{position:absolute;bottom:-2.4rem;left:50%;transform:translateX(-50%);font-family:var(--micro);font-size:.58rem;letter-spacing:.4em;color:var(--gold);opacity:.75;white-space:nowrap;}
 .env-cta::before,.env-cta::after{content:"";display:inline-block;width:20px;height:1px;background:var(--gold);vertical-align:middle;margin:0 .6rem;opacity:.6;}
 
-/* ── INTRO: transparent open-invitation → cinematic video → landing ── */
-#intro{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(900px 720px at 50% 44%,rgba(67,16,25,.80),rgba(28,7,11,.94));
-  -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
-  transition:opacity 1s ease,visibility 1s ease;}
-#intro.gone{opacity:0;visibility:hidden;pointer-events:none;}
-.invite-card{position:relative;z-index:1;text-align:center;padding:2.4rem 1.5rem;cursor:pointer;max-width:92vw;
-  opacity:0;animation:riseIn 1.6s .35s forwards cubic-bezier(.2,.7,.2,1);transition:opacity .65s ease,transform .65s ease;}
-#intro.playing .invite-card{opacity:0;transform:scale(1.05);pointer-events:none;}
-.invite-arabic{font-family:var(--arabic);color:var(--gold-hi);font-size:1.2rem;margin-bottom:1.3rem;opacity:.92;}
-.invite-eyebrow{font-family:var(--micro);font-size:.55rem;letter-spacing:.4em;color:var(--gold);margin-bottom:1.3rem;
-  display:flex;align-items:center;justify-content:center;gap:.7rem;}
-.invite-eyebrow::before,.invite-eyebrow::after{content:"";width:26px;height:1px;background:var(--gold);opacity:.6;}
-.invite-gline{width:160px;height:1px;background:var(--gold);opacity:.8;margin:0 auto 1.5rem;}
-.invite-date{font-family:var(--italic);font-style:italic;color:var(--gold-2);font-size:1.02rem;letter-spacing:.06em;margin-top:.85rem;}
-.invite-cta{margin-top:1.9rem;font-family:var(--micro);font-size:.56rem;letter-spacing:.42em;color:var(--gold);
-  display:inline-flex;align-items:center;gap:.7rem;animation:pulseCta 2.6s ease-in-out infinite;}
-.invite-cta::before,.invite-cta::after{content:"";width:18px;height:1px;background:var(--gold);opacity:.6;}
-@keyframes pulseCta{0%,100%{opacity:.45;}50%{opacity:.95;}}
-.intro-video-stage{position:absolute;inset:0;z-index:2;background:#000;opacity:0;visibility:hidden;
-  transition:opacity .8s ease;display:flex;align-items:center;justify-content:center;}
-#intro.playing .intro-video-stage{opacity:1;visibility:visible;}
-.intro-video-stage video{width:100%;height:100%;object-fit:cover;background:#000;display:block;}
-.intro-skip{position:absolute;bottom:1.6rem;right:1.3rem;z-index:3;font-family:var(--micro);font-size:.52rem;
-  letter-spacing:.34em;color:var(--ivory);opacity:.8;background:rgba(0,0,0,.4);border:1px solid var(--gold-dim);
-  padding:.5rem 1rem;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);}
-.intro-skip:hover{opacity:1;}
-
 /* ── TOP BAR ── */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:50;padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,rgba(5,4,3,.85),transparent);backdrop-filter:blur(6px);pointer-events:none;}
 .topbar .mono{font-family:var(--serif);font-style:italic;color:var(--gold-hi);font-size:1.05rem;}
@@ -329,23 +301,18 @@ footer{padding:5rem 1.5rem 3rem;text-align:center;position:relative;z-index:3;}
 </div>
 <input type="file" id="bgmFilePicker" accept="audio/*" style="display:none" onchange="uploadBgm(this)"/>
 
-<!-- INTRO: transparent open-invitation → cinematic video → landing -->
-<div id="intro">
-  <div class="invite-card" id="inviteCard" onclick="openInvite()">
-    <div class="invite-arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
-    <div class="invite-eyebrow">WEDDING INVITATION</div>
-    <div class="invite-gline"></div>
-    <div class="hero-name fit-name" style="white-space:nowrap;letter-spacing:-.01em;padding:0 .55em;font-size:2.1rem;"><span class="shine">Muhammed Faiz</span></div>
-    <div class="hero-amp" style="margin:.5rem 0;">✦ weds ✦</div>
-    <div class="hero-name fit-name" style="white-space:nowrap;letter-spacing:-.01em;padding:0 .55em;font-size:2.1rem;"><span class="shine">Varshana</span></div>
-    <div class="invite-date">Sunday · 30 August 2026 · Insha Allah</div>
-    <div class="invite-cta">TAP TO OPEN INVITATION</div>
-  </div>
-  <div class="intro-video-stage" id="introVideoStage">
-    <video id="introVideo" playsinline preload="auto">
-      <source id="introVideoSrc" src="assets/hero.mp4" type="video/mp4"/>
-    </video>
-    <button class="intro-skip" id="introSkip" onclick="finishIntro()">SKIP ✦</button>
+<!-- ENVELOPE -->
+<div id="envelope">
+  <div class="env-wrap" id="envWrap" onclick="openEnv()">
+    <div class="env-body">
+      <div class="env-monogram">F<span style="opacity:.5">&amp;</span>V</div>
+      <div class="env-rule"></div>
+      <div class="env-names" style="letter-spacing:.18em;line-height:1.9;text-align:center;">MUHAMMED FAIZ<br/><span style="font-family:var(--italic);font-style:italic;text-transform:none;letter-spacing:.05em;opacity:.65;font-size:1.5em;">weds</span><br/>VARSHANA</div>
+      <div class="env-date">Wedding Invitation · 30 August 2026</div>
+    </div>
+    <div class="env-flap"></div>
+    <div class="env-seal" style="font-family:'Cormorant Upright',serif;font-size:1.1rem;font-weight:400;letter-spacing:.05em;font-style:normal;color:#2a1f08;line-height:1;text-align:center;">F&amp;V</div>
+    <div class="env-cta">TAP TO OPEN</div>
   </div>
 </div>
 
@@ -359,7 +326,6 @@ footer{padding:5rem 1.5rem 3rem;text-align:center;position:relative;z-index:3;}
 <section id="hero">
   <div class="hero-bg"></div>
   <button id="heroUploadBtn" onclick="uploadHeroImage()" style="display:none;position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:10;background:rgba(176,141,91,.15);border:1px solid var(--gold);color:var(--gold);font-family:var(--micro);font-size:.45rem;letter-spacing:.35em;padding:.55rem 1.2rem;cursor:pointer;backdrop-filter:blur(6px);align-items:center;gap:.4rem;">+ ADD PHOTO</button>
-  <button id="introVideoBtn" onclick="uploadIntroVideo()" style="display:none;position:absolute;bottom:3.6rem;left:50%;transform:translateX(-50%);z-index:10;background:rgba(176,141,91,.15);border:1px solid var(--gold);color:var(--gold);font-family:var(--micro);font-size:.45rem;letter-spacing:.35em;padding:.55rem 1.2rem;cursor:pointer;backdrop-filter:blur(6px);align-items:center;gap:.4rem;">+ INTRO VIDEO</button>
 
 
   <div class="hero-arabic" style="font-size:1.45rem;margin-bottom:.6rem;">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا</div>
@@ -534,46 +500,19 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 }/*EDITMODE-END*/;
 let TW = {...TWEAK_DEFAULTS};
 
-// ── INTRO: transparent open-invitation → cinematic video → landing ──
-let introFinished = false;
-
-function openInvite(){
-  const intro = document.getElementById('intro');
-  if(!intro || intro.classList.contains('playing')) return;
-  intro.classList.add('playing');
-  const v = document.getElementById('introVideo');
-  if(!v){ finishIntro(); return; }
-  v.addEventListener('ended', finishIntro, { once:true });
-  v.addEventListener('error', finishIntro, { once:true });
-  // Safety net so a guest is never stranded if the clip stalls or fails to load.
-  // Prefer the real duration once known; otherwise use a generous fixed fallback.
-  let guard = setTimeout(()=>{ if(intro.classList.contains('playing')) finishIntro(); }, 15000);
-  v.addEventListener('loadedmetadata', ()=>{
-    if(isFinite(v.duration) && v.duration > 0){
-      clearTimeout(guard);
-      guard = setTimeout(()=>{ if(intro.classList.contains('playing')) finishIntro(); }, (v.duration + 4) * 1000);
-    }
-  }, { once:true });
-  // The tap is a user gesture, so we may play with sound; fall back to muted if blocked.
-  v.muted = false;
-  const p = v.play();
-  if(p && p.catch){
-    p.catch(()=>{ v.muted = true; const p2 = v.play(); if(p2 && p2.catch){ p2.catch(finishIntro); } });
-  }
+// envelope
+function openEnv(){
+  document.getElementById('envWrap').classList.add('open');
+  setTimeout(()=>{
+    document.getElementById('envelope').classList.add('gone');
+    document.body.style.overflowY='auto';
+    showBgmBtn();
+    loadBgmFromFirebase();
+  },1400);
 }
-
-function finishIntro(){
-  if(introFinished) return;
-  introFinished = true;
-  const v = document.getElementById('introVideo');
-  try { if(v){ v.pause(); } } catch(e){}
-  const intro = document.getElementById('intro');
-  if(intro){ intro.classList.add('gone'); }
-  document.body.style.overflowY = 'auto';
-  showBgmBtn();
-  loadBgmFromFirebase();
-  setTimeout(()=>{ if(intro){ intro.style.display = 'none'; } }, 1100);
-}
+setTimeout(()=>{
+  if(!document.getElementById('envWrap').classList.contains('open')) openEnv();
+},6000);
 document.body.style.overflowY='hidden';
 
 // gold dust
@@ -626,21 +565,6 @@ document.getElementById('ceremGcal').href=gcal("Faiz & Varshana — Wedding Rece
 document.getElementById('ceremIcal').href=ics("Faiz & Varshana — Wedding Reception",ceremS,ceremE,"Heavens Convention Center, Makkaraparamba, Perinthalmanna, Malappuram, Kerala 676507");
 
 let adminMode = false;
-
-// ── INTRO VIDEO SOURCE (Cloudinary URL synced via Firebase; falls back to bundled asset) ──
-function loadIntroVideo(){
-  if(!window._db){ setTimeout(loadIntroVideo, 300); return; }
-  window._db.ref(IMG_PATH + '/introVideo').on('value', function(snap){
-    var url = slotUrl(snap.val());
-    var v = document.getElementById('introVideo');
-    var src = document.getElementById('introVideoSrc');
-    if(url && v && src && (src.getAttribute('src') !== url)){
-      src.setAttribute('src', url);
-      v.load();
-    }
-  });
-}
-loadIntroVideo();
 
 // ── LOAD HERO IMAGE FROM FIREBASE ──
 function loadHeroImage(){
@@ -776,7 +700,6 @@ function enableAdmin(){
   if(pin !== ADMIN_PIN){ alert('Incorrect PIN'); return; }
   adminMode = true;
   document.getElementById('heroUploadBtn').style.display = 'flex';
-  var ivb = document.getElementById('introVideoBtn'); if(ivb){ ivb.style.display = 'flex'; }
   showBgmBtn(); setBgmIcon(bgmLoaded ? 'play' : 'empty');
   enableSlotEditing();
   alert('Admin mode ON');
@@ -815,51 +738,6 @@ function uploadHeroImage(){
       if(oldPid && oldPid !== data.public_id){ deleteCloudinaryAsset(oldPid, 'image'); }
     } catch(e){
       btn.textContent = '+ ADD PHOTO';
-      alert('Upload failed. Please try again.');
-    } finally {
-      if(input.parentNode) input.parentNode.removeChild(input);
-    }
-  };
-  document.body.appendChild(input);
-  input.click();
-  window.addEventListener('focus', function cleanup(){
-    setTimeout(function(){
-      if(input.parentNode && (!input.files || !input.files.length)){ input.parentNode.removeChild(input); }
-    }, 800);
-    window.removeEventListener('focus', cleanup);
-  }, { once:true });
-}
-
-// ── ADMIN: upload the intro video to Cloudinary, sync URL to all guests via Firebase ──
-function uploadIntroVideo(){
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = 'video/*';
-  input.style.display = 'none';
-  input.onchange = async () => {
-    const file = input.files && input.files[0];
-    if(!file){ if(input.parentNode) input.parentNode.removeChild(input); return; }
-    const btn = document.getElementById('introVideoBtn');
-    if(btn) btn.textContent = 'UPLOADING…';
-    let oldPid = null;
-    try {
-      const cur = await window._db.ref(IMG_PATH + '/introVideo').once('value');
-      oldPid = slotPid(cur.val());
-    } catch(e){ /* ignore */ }
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('upload_preset', UPLOAD_PRESET);
-    fd.append('folder', COUPLE_FOLDER + '/intro');
-    try {
-      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`, {method:'POST', body:fd});
-      const data = await res.json();
-      if(!data || !data.secure_url){ throw new Error(data && data.error ? data.error.message : 'upload error'); }
-      window._db.ref(IMG_PATH + '/introVideo').set({ url: data.secure_url, public_id: data.public_id });
-      if(btn) btn.textContent = '+ CHANGE INTRO VIDEO';
-      if(oldPid && oldPid !== data.public_id){ deleteCloudinaryAsset(oldPid, 'video'); }
-      alert('Intro video uploaded ✓ (saved for all guests)');
-    } catch(e){
-      if(btn) btn.textContent = '+ INTRO VIDEO';
       alert('Upload failed. Please try again.');
     } finally {
       if(input.parentNode) input.parentNode.removeChild(input);
